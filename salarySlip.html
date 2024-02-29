@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Slip</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Salary Slip</h2>
+
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter employee name" required>
+        </div>
+        <div class="form-group">
+            <label for="grossSalary">Gross Salary:</label>
+            <input type="number" class="form-control" id="grossSalary" placeholder="Enter gross salary" required>
+        </div>
+
+        <div class="form-group">
+            <label for="bonus">Bonus (Dollars):</label>
+            <input type="number" class="form-control" id="bonus" placeholder="Enter bonus amount in dollars" required>
+        </div>
+
+        <div class="form-group">
+            <label for="allowance">Allowance (Dollars):</label>
+            <input type="number" class="form-control" id="allowance" placeholder="Enter allowance amount in dollars" required>
+        </div>
+
+        <div class="form-group">
+            <label for="incomeTaxDeduction">Income Tax Deduction (%):</label>
+            <input type="number" class="form-control" id="incomeTaxDeduction" placeholder="Enter income tax deduction percentage" required>
+        </div>
+
+        <div class="form-group">
+            <label for="eiDeduction">Employment Insurance Deduction (%):</label>
+            <input type="number" class="form-control" id="eiDeduction" placeholder="Enter EI deduction percentage" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cppDeduction">Canada Pension Plan Deduction (%):</label>
+            <input type="number" class="form-control" id="cppDeduction" placeholder="Enter CPP deduction percentage" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dependants">Number of Dependents:</label>
+            <input type="number" class="form-control" id="dependants" placeholder="Enter the number of dependents" required>
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select class="form-control" id="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" onclick="calculateSalary()">Generate Salary Slip</button>
+    </form>
+
+    <div class="mt-4">
+        <h4>Calculated Salary:</h4>
+        <p id="calculatedSalary">Salary will be displayed here after calculation.</p>
+    </div>
+</div>
+
+<script>
+    function calculateSalary() {
+        // Get user inputs
+        const name = document.getElementById("name").value;
+        const grossSalary = parseFloat(document.getElementById("grossSalary").value);
+        const bonus = parseFloat(document.getElementById("bonus").value);
+        const allowance = parseFloat(document.getElementById("allowance").value);
+        const incomeTaxDeduction = parseFloat(document.getElementById("incomeTaxDeduction").value);
+        const eiDeduction = parseFloat(document.getElementById("eiDeduction").value);
+        const cppDeduction = parseFloat(document.getElementById("cppDeduction").value);
+        const dependants = parseInt(document.getElementById("dependants").value);
+        const gender = document.getElementById("gender").value;
+
+        // Calculate deductions - check!!!!
+        const totalDeductions = (eiDeduction + cppDeduction + incomeTaxDeduction) / 100 * grossSalary;
+
+        // Apply additional income tax deduction for females
+        const genderDeduction = (gender === "female") ? 1 : 0;
+
+        // Apply dependants deduction
+        let dependantsDeduction = 0;
+        if (dependants === 3) {
+            dependantsDeduction = 2;
+        } else if (dependants === 4) {
+            dependantsDeduction = 4;
+        }
+
+        // Calculate net salary
+        const netSalary = grossSalary - totalDeductions + bonus + allowance - genderDeduction - dependantsDeduction;
+
+         // Display the result
+         document.getElementById("calculatedSalary").innerHTML = `
+         Employee name: ${name}<br>
+         Gross Salary: $${grossSalary.toFixed(2)}<br>
+         Additions: $${(bonus + allowance).toFixed(2)}<br>
+         Deductions: $${totalDeductions.toFixed(2)}<br>
+         Net Salary: $${netSalary.toFixed(2)}
+     `;
+    }
+</script>
+
+</body>
+</html>
