@@ -1,8 +1,8 @@
 # Salary-Slip
 
-Implemented a salary slip calculator that takes gross salary from user, applies deductions for Income Tax (IT), Employment Insurance (EI) and Canada Pension Plan (CPP) in percentages.
+Implemented a salary slip calculator, enabling users to input various financial components including gross salary, bonuses, allowances, and additional details. Applies deductions for Income Tax (IT), Employment Insurance (EI), Canada Pension Plan (CPP) and adds Bonus, Allowance.
 
-Adds Bonus and Allowance in Dollars from users.
+Applied elegant algorithms to accurately compute deductions based on specific conditions such as gender-based tax adjustments and dependant-related deductions.
 Applies deduction of 1 % IT for females.
 Applies conditions on dependants as:
 2 dependants no deductions in IT, 
